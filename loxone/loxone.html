@@ -181,7 +181,7 @@
 
 
     function disableChangeEvents() {
-        $('#node-input-miniserver, #node-input-room, #node-input-category, #node-input-control').off('change');
+        $('#node-input-miniserver, #node-input-room, #node-input-category, #node-input-control, #node-input-path').off('change');
     }
 </script>
 
@@ -419,6 +419,14 @@
     </div>
 
     <div class="form-row">
+        <label for="node-input-control">
+            <i class="icon-cogs"></i>
+            PathSuffix
+        </label>
+        <input type="text" id="node-input-path" placeholder="Path">
+    </div>
+
+    <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
@@ -446,7 +454,8 @@
         defaults: {
             name: {value: ''},
             miniserver: {type: 'loxone-miniserver', required: true},
-            control: {value: '', required: true}
+            control: {value: '', required: true},
+            path: {value: '', required: false}
         },
         inputs: 1,
         outputs: 0,
@@ -1022,4 +1031,3 @@
         oneditcancel: disableChangeEvents
     });
 </script>
-

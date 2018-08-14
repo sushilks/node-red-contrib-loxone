@@ -557,6 +557,7 @@ module.exports = function (RED) {
             rooms: data.rooms || {},
             cats: data.cats || {},
             controls: {},
+            path: "",
             msInfo: data.msInfo || {},
             lastModified: data.lastModified
         };
@@ -652,14 +653,16 @@ module.exports = function (RED) {
 
         node.control = config.control;
         node.miniserver = RED.nodes.getNode(config.miniserver);
-
         if (node.miniserver) {
 
             node.miniserver.registerOutputNode(node);
 
             this.on('input', function (msg) {
                 if (node.miniserver.connected && node.miniserver.connection) {
-                    node.miniserver.connection.send_control_command(node.control, msg.payload);
+                    if (config.path && config.path != '')
+                      node.miniserver.connection.send_control_command(node.control + config.path, msg.payload);
+                    else
+                      node.miniserver.connection.send_control_command(node.control, msg.payload);
                 }
             });
 
